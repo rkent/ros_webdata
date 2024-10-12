@@ -12,6 +12,7 @@ def get_debian_packages():
     print(':'.join(hex(x)[2:] for x in (response.content[:200])))
     # content = response.content.decode('utf-8')
     content = response.text
+    print(content[:200])
     print(f'content:\n{len(content)}')
     line_count = 0
     packages = {}
