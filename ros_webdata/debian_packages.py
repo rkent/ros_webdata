@@ -7,7 +7,7 @@ DEBIAN_URL = 'https://packages.debian.org/stable/allpackages?format=txt.gz'
 def get_debian_packages():
     print('get_debian_packages')
     content = requests.get(DEBIAN_URL).text
-    print(f'content: {len(content)}')
+    print(f'content:\n{content}')
     line_count = 0
     packages = {}
     for line in content.split('\n'):
