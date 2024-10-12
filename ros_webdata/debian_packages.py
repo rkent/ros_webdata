@@ -8,7 +8,7 @@ def get_debian_packages():
     print('get_debian_packages')
     response = requests.get(DEBIAN_URL)
     print(f'response encoding is {response.encoding}')
-    content = response.text
+    content = response.content.decode('utf-8')
     print(f'content:\n{len(content)}')
     line_count = 0
     packages = {}
