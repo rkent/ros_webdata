@@ -18,7 +18,7 @@ def get_debian_packages():
         if left_paren < 0 or right_paren < 0:
             continue
         line_count += 1
-        print(line)
+        print(ascii(line))
         package_name = line[:left_paren - 1]
         package_desc = line[right_paren + 2:]
         packages[package_name] = package_desc
