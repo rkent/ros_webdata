@@ -9,10 +9,10 @@ COMMAND_NAME = 'rosdeps_descriptions'
 
 
 def main(sysargs=None):
-    sys.stdout.reconfigure(encoding='utf-8')
     # Assign sysargs if not set
     sysargs = sys.argv[1:] if sysargs is None else sysargs
 
+    print(" can you handle unicode? Å")
     # Create a top level parser
     parser = argparse.ArgumentParser(
         prog='rosdeps_descriptions',

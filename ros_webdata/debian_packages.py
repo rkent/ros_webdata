@@ -21,5 +21,6 @@ def get_debian_packages():
         package_name = line[:left_paren - 1]
         package_desc = line[right_paren + 2:]
         packages[package_name] = package_desc
-        print(f'{package_name} : {package_desc}')
+        # For some reason, this prints as gibberish in github actions
+        # print(f'{package_name} : {package_desc}')
     return packages
