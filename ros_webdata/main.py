@@ -4,7 +4,7 @@ from pathlib import Path
 import sys
 
 from .debian_packages import get_debian_packages
-from .pip_packages import get_python_deps
+from .pip_packages import get_pip_names, get_pip_descriptions
 
 COMMAND_NAME = 'rosdeps_descriptions'
 
@@ -31,7 +31,8 @@ def main(sysargs=None):
     if 'debian' in args.types:
         get_debian_packages(outdir)
     if 'pip' in args.types:
-        get_python_deps(outdir)
+        pip_package_names = get_pip_names(outdir)
+        get_pip_descriptions(outdir, pip_package_names)
 
 if __name__ == '__main__':
     main()

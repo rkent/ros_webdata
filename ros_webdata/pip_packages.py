@@ -4,9 +4,9 @@ import yaml
 
 
 ROS_PYTHON_DEPS_URL = 'https://github.com/ros/rosdistro/raw/refs/heads/master/rosdep/python.yaml'
-def get_python_deps(outdir):
-    print('get_python_deps')
-    distro_packages = {}
+def get_pip_names(outdir):
+    print('get_pip_names')
+    pip_package_names = {}
     response = requests.get(ROS_PYTHON_DEPS_URL , allow_redirects=True)
     content = response.content.decode("utf-8")
     rosdeps = yaml.safe_load(content)
@@ -18,17 +18,36 @@ def get_python_deps(outdir):
             if type(rosdeps[key][distro]) is dict:
                 if 'pip' in rosdeps[key][distro]:
                     if type(rosdeps[key][distro]['pip']) is list:
-                        distro_packages[key] = rosdeps[key][distro]['pip'][0]
+                        pip_package_names[key] = rosdeps[key][distro]['pip'][0]
                         found_it = True
                         break
                     if 'packages' in rosdeps[key][distro]['pip']:
-                        distro_packages[key] = rosdeps[key][distro]['pip']['packages'][0]
+                        pip_package_names[key] = rosdeps[key][distro]['pip']['packages'][0]
                         found_it = True
                         break
         if found_it:
-            print(f'{key}: {distro_packages[key]}')
+            print(f'{key}: {pip_package_names[key]}')
 
     with open(outdir / 'pip_package_names.json', 'w', encoding ='utf8') as json_file:
-        json.dump(distro_packages, json_file, ensure_ascii=True, indent=1)
+        json.dump(pip_package_names, json_file, ensure_ascii=True, indent=1)
 
-    print(f'found {len(distro_packages)} pip package names')
+    print(f'found {len(pip_package_names)} pip package names')
+    return pip_package_names
+
+PYPI_API_URL = 'https://pypi.python.org/pypi/{package_name}/json'
+def get_pip_descriptions(outdir, pip_package_names):
+    print('get_pip_descriptions')
+    pip_descriptions = {}
+    for key, value in pip_package_names.items():
+        url = PYPI_API_URL.format(package_name=value)
+        response = requests.get(url , allow_redirects=True)
+        result = response.json()
+        summary = result['info'].get('summary') if 'info' in result else None
+        if summary:
+            pip_descriptions[key] = summary
+            print(key, pip_descriptions[key])
+        else:
+            print(f'No pip summary found for {key}: {value}')
+
+    with open(outdir / 'pip_packages.json', 'w', encoding ='utf8') as json_file:
+        json.dump(pip_descriptions, json_file, ensure_ascii=True, indent=1)
