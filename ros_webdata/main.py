@@ -4,6 +4,7 @@ from pathlib import Path
 import sys
 
 from .debian_packages import get_debian_packages
+from .pip_packages import get_python_deps
 
 COMMAND_NAME = 'rosdeps_descriptions'
 
@@ -19,6 +20,7 @@ def main(sysargs=None):
     )
 
     parser.add_argument('-o', '--output_dir', default='./outdir', help='Directory containing output files')
+    parser.add_argument('-t', '--types', default='debian,pip', help='Types to run, default is debian,pip')
     # parser.add_argument('-h', '--help', action='store_true')
 
     args = parser.parse_args()
@@ -26,11 +28,10 @@ def main(sysargs=None):
 
     outdir = Path(args.output_dir)
     outdir.mkdir(parents=True, exist_ok=True)
-    debian_packages = get_debian_packages()
-    with open(outdir / 'debian_packages.json', 'w', encoding ='utf8') as json_file:
-        json.dump(debian_packages, json_file, ensure_ascii=True, indent=1)
-
-    print(f'found {len(debian_packages)} debian packages')
+    if 'debian' in args.types:
+        get_debian_packages(outdir)
+    if 'pip' in args.types:
+        get_python_deps(outdir)
 
 if __name__ == '__main__':
     main()
