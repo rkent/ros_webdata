@@ -2,7 +2,7 @@ name: Run program to update data
 run-name: ${{ github.actor }} is running ros_webdata
 on: [push]
 jobs:
-  Run ros_webdata:
+  Run_ros_webdata:
     runs-on: ubuntu-latest
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
