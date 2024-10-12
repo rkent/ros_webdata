@@ -1,5 +1,5 @@
-name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+name: Run program to update data
+run-name: ${{ github.actor }} is running ros_webdata
 on: [push]
 jobs:
   Explore-GitHub-Actions:
@@ -14,5 +14,8 @@ jobs:
       - run: echo "🖥️ The workflow is now ready to test your code on the runner."
       - name: List files in the repository
         run: |
+          echo 'github.workspace'
           ls ${{ github.workspace }}
+          echo '/.'
+          ls ./
       - run: echo "🍏 This job's status is ${{ job.status }}."
