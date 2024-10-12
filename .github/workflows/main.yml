@@ -2,7 +2,7 @@ name: Run program to update data
 run-name: ${{ github.actor }} is running ros_webdata
 on: [push]
 jobs:
-  Explore-GitHub-Actions:
+  Run ros_webdata:
     runs-on: ubuntu-latest
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
@@ -14,8 +14,6 @@ jobs:
       - run: echo "🖥️ The workflow is now ready to test your code on the runner."
       - name: List files in the repository
         run: |
-          echo 'github.workspace'
-          ls ${{ github.workspace }}
-          echo '/.'
+          python3 -m ros_webdata.main 
           ls ./
       - run: echo "🍏 This job's status is ${{ job.status }}."
