@@ -1,1 +1,23 @@
-{}
+{
+ "0ad": "Real-time strategy game of ancient warfare",
+ "0ad-data": "Real-time strategy game of ancient warfare (data files)",
+ "0ad-data-common": "Real-time strategy game of ancient warfare (common data files)",
+ "0install": "cross-distribution packaging system",
+ "0install-core": "cross-distribution packaging system (non-GUI parts)",
+ "0xffff": "Open Free Fiasco Firmware Flasher",
+ "1oom": "[contrib] Master of Orion engine",
+ "2048": "Slide and add puzzle game for text mode",
+ "2048-qt": "mathematics based puzzle game",
+ "2ping": "Ping utility to determine directional packet loss",
+ "2to3": "2to3 binary using python3",
+ "2vcard": "convert an addressbook to VCARD file format",
+ "3270-common": "Common files for IBM 3270 emulators and pr3287",
+ "389-ds": "389 Directory Server suite - metapackage",
+ "389-ds-base": "389 Directory Server suite - server",
+ "389-ds-base-dev": "389 Directory Server suite - development files",
+ "389-ds-base-libs": "389 Directory Server suite - libraries",
+ "3dchess": "Play chess across 3 boards!",
+ "3depict": "visualisation and analysis for single valued point data",
+ "4g8": "Packet Capture and Interception for Switched Networks",
+ "4pane": "four-pane detailed-list file manager"
+}
