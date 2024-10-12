@@ -9,6 +9,7 @@ COMMAND_NAME = 'rosdeps_descriptions'
 
 
 def main(sysargs=None):
+    sys.stdout.reconfigure(encoding='ascii', errors='replace')
     # Assign sysargs if not set
     sysargs = sys.argv[1:] if sysargs is None else sysargs
 
