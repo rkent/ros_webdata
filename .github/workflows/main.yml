@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: build
-          clean: false
+          path: outdir
       - name: Check branch download
         run: ls ./
       - name: Run ros_webdata
