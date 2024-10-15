@@ -14,11 +14,11 @@
 
 
 import argparse
-import json
 from pathlib import Path
 import sys
 
 from .debian_packages import get_debian_packages
+from.package_downloads import get_package_downloads
 from .pip_packages import get_pip_names, get_pip_descriptions
 
 COMMAND_NAME = 'rosdeps_descriptions'
@@ -35,7 +35,7 @@ def main(sysargs=None):
     )
 
     parser.add_argument('-o', '--output_dir', default='./outdir', help='Directory containing output files')
-    parser.add_argument('-t', '--types', default='debian,pip', help='Types to run, default is debian,pip')
+    parser.add_argument('-t', '--types', default='debian,pip,downloads', help='Types to run, default is debian,pip,downloads')
     # parser.add_argument('-h', '--help', action='store_true')
 
     args = parser.parse_args()
@@ -48,6 +48,8 @@ def main(sysargs=None):
     if 'pip' in args.types:
         pip_package_names = get_pip_names(outdir)
         get_pip_descriptions(outdir, pip_package_names)
+    if 'downloads' in args.types:
+        get_package_downloads(outdir)
 
 if __name__ == '__main__':
     main()

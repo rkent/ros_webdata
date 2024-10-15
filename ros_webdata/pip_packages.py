@@ -39,8 +39,8 @@ def get_pip_names(outdir):
                         pip_package_names[key] = rosdeps[key][distro]['pip']['packages'][0]
                         found_it = True
                         break
-        if found_it:
-            print(f'{key}: {pip_package_names[key]}')
+        # if found_it:
+        #    print(f'{key}: {pip_package_names[key]}')
 
     with open(outdir / 'pip_package_names.json', 'w', encoding ='utf8') as json_file:
         json.dump(pip_package_names, json_file, ensure_ascii=True, indent=1)
