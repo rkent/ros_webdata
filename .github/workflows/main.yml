@@ -27,7 +27,7 @@ jobs:
         run: ls ./
       - name: Run ros_webdata
         run: |
-          pip install --force-reinstall requests
+          pip install requests beautifulsoup4
           python3 -m ros_webdata.main 
           ls ./
       - name: Push
