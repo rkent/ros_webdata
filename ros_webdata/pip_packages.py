@@ -59,7 +59,7 @@ def get_pip_descriptions(outdir, pip_package_names):
         summary = result['info'].get('summary') if 'info' in result else None
         if summary:
             pip_descriptions[key] = summary
-            print(key, pip_descriptions[key])
+            # print(key, pip_descriptions[key])
         else:
             print(f'No pip summary found for {key}: {value}')
 

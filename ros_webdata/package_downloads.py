@@ -116,7 +116,7 @@ def get_aws_downloads(url):
             continue
 
         # get existing package, or create a new
-        name = '-'.join(full_name_details[2:])
+        name = '_'.join(full_name_details[2:])
         distro = full_name_details[1]
         count = int(row.next_sibling.get_text().replace(',', ''))
 
