@@ -404,7 +404,7 @@
  "python3-triangle-pip": "Python binding to the triangle library",
  "python3-trimesh-pip": "Import, export, process, analyze and view triangular meshes.",
  "python3-typeguard-pip": "Run-time type checker for Python",
- "python3-ultralytics-pip": "Ultralytics YOLO for SOTA object detection, multi-object tracking, instance segmentation, pose estimation and image classification.",
+ "python3-ultralytics-pip": "Ultralytics YOLO \ud83d\ude80 for SOTA object detection, multi-object tracking, instance segmentation, pose estimation and image classification.",
  "python3-urdfpy-pip": "URDF parser and manipulator for Python",
  "python3-vedo-pip": "A python module for scientific analysis and visualization of 3D objects and point clouds based on VTK and Numpy.",
  "python3-virtualserialports-pip": "*nix virtual serial ports",
