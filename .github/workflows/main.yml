@@ -8,7 +8,7 @@ on:
     - cron: '0 8 * * *'
 
 jobs:
-  Run_ros_webdata:
+  build:
     runs-on: ubuntu-22.04
     steps:
       - name: Info
@@ -18,24 +18,40 @@ jobs:
           echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
       - name: Checkout repository code
         uses: actions/checkout@v4
-      - name: Checkout data branch
-        uses: actions/checkout@v4
-        with:
-          ref: build
-          path: outdir
-      - name: Check branch download
-        run: ls ./
+      # - name: Checkout data branch
+      #  uses: actions/checkout@v4
+      #  with:
+      #    ref: build
+      #    path: outdir
+      #- name: Check branch download
+      #  run: ls ./
       - name: Run ros_webdata
         run: |
           pip install requests beautifulsoup4
           python3 -m ros_webdata.main 
           ls ./
-      - name: Push
-        uses: s0/git-publish-subdir-action@develop
-        env:
-          REPO: self
-          BRANCH: build # The branch name where you want to push the assets
-          FOLDER: outdir # The directory where your assets are generated
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub will automatically add this - you don't need to bother getting a token
-          MESSAGE: "Build: ({sha}) {msg}" # The commit message
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+      - name: Upload static files as artifact
+        id: deployment
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: outdir/
+
+      #- name: Push
+      #  uses: s0/git-publish-subdir-action@develop
+      #  env:
+      #    REPO: self
+      #    BRANCH: build # The branch name where you want to push the assets
+      #    FOLDER: outdir # The directory where your assets are generated
+      #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub will automatically add this - you don't need to bother getting a token
+      #    MESSAGE: "Build: ({sha}) {msg}" # The commit message
+  # Deployment job
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
