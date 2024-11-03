@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import gzip
+import io
 import json
 import requests
 
@@ -20,12 +22,17 @@ DEBIAN_URL = 'https://packages.debian.org/stable/allpackages?format=txt.gz'
 def get_debian_packages(outdir):
     print('get_debian_packages')
     response = requests.get(DEBIAN_URL)
-    content = response.text
+
+    if response.status_code == 200:
+        # Decompress the gzipped content
+        with gzip.GzipFile(fileobj=io.BytesIO(response.content)) as gz:
+            content = gz.read().decode('utf-8')
+    else:
+        raise Exception(f"Invalid reponse code: {response.status_code}")
+
     line_count = 0
     packages = {}
     for line in content.split('\n'):
-        # if line_count> 20:
-        #    break
         line_count += 1
         left_paren = line.find('(')
         right_paren = line.find(')')
@@ -34,11 +41,8 @@ def get_debian_packages(outdir):
         package_name = line[:left_paren - 1]
         package_desc = line[right_paren + 2:]
         packages[package_name] = package_desc
-        # print(f'{package_name} : {package_desc}')
-
-    with open(outdir / 'debian_packages.json', 'w', encoding ='utf8') as json_file:
-        json.dump(packages, json_file, ensure_ascii=True, indent=1)
-
+    with open(outdir / 'debian_packages.json', 'w', encoding='utf-8') as json_file:
+        json.dump(packages, json_file, ensure_ascii=True, indent=2)
     print(f'found {len(packages)} debian packages')
 
     return packages

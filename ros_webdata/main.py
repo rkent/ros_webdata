@@ -21,7 +21,7 @@ from .debian_packages import get_debian_packages
 from.package_downloads import get_package_downloads
 from .pip_packages import get_pip_names, get_pip_descriptions
 
-COMMAND_NAME = 'rosdeps_descriptions'
+COMMAND_NAME = 'python3 -m ros_webdata.main'
 
 
 def main(sysargs=None):
@@ -30,7 +30,7 @@ def main(sysargs=None):
 
     # Create a top level parser
     parser = argparse.ArgumentParser(
-        prog='rosdeps_descriptions',
+        prog=COMMAND_NAME,
         description='Generate description summaries for ros dependencies using upstream sources'
     )
 
