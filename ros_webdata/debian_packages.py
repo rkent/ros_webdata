@@ -18,7 +18,7 @@ import json
 import requests
 
 
-DEBIAN_URL = 'https://packages.debian.org/stable/allpackages?format=txt.gz'
+DEBIAN_URL = 'https://packages.debian.org/bookworm/allpackages?format=txt.gz'
 def get_debian_packages(outdir):
     print('get_debian_packages')
     response = requests.get(DEBIAN_URL)
@@ -31,6 +31,7 @@ def get_debian_packages(outdir):
                 content = gz.read().decode('utf-8')
             except Exception as e:
                 print(f"Error reading gzipped content: {e}")
+                print(f'Response content type: {response.headers.get("Content-Type")}')
                 print("Saving response content to debian_packages_error_content.gz for inspection.")
                 with open(outdir / 'debian_packages_error_content.gz', 'wb') as f:
                     f.write(response.content)
