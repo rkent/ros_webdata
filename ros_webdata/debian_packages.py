@@ -25,6 +25,7 @@ def get_debian_packages(outdir):
 
     if response.status_code == 200:
         # Decompress the gzipped content
+        print(f'Checking gzip magic number: {response.content[0:2]}')
         with gzip.GzipFile(fileobj=io.BytesIO(response.content)) as gz:
             content = gz.read().decode('utf-8')
     else:
