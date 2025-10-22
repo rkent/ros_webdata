@@ -32,7 +32,7 @@ def get_debian_packages(outdir):
             except Exception as e:
                 print(f"Error reading gzipped content: {e}")
                 print("Saving response content to debian_packages_error_content.gz for inspection.")
-                with open('debian_packages_error_content.gz', 'wb') as f:
+                with open(outdir / 'debian_packages_error_content.gz', 'wb') as f:
                     f.write(response.content)
                 raise
     else:
