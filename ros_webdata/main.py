@@ -44,7 +44,10 @@ def main(sysargs=None):
     outdir = Path(args.output_dir)
     outdir.mkdir(parents=True, exist_ok=True)
     if 'debian' in args.types:
-        get_debian_packages(outdir)
+        try:
+            get_debian_packages(outdir)
+        except Exception as e:
+            print(f"Error occurred while processing debian packages: {e}")
     if 'pip' in args.types:
         pip_package_names = get_pip_names(outdir)
         get_pip_descriptions(outdir, pip_package_names)

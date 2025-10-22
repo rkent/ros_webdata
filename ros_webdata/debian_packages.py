@@ -31,7 +31,9 @@ def get_debian_packages(outdir):
                 content = gz.read().decode('utf-8')
             except Exception as e:
                 print(f"Error reading gzipped content: {e}")
-                print(f'Response content (first 4000 bytes): {response.content[:4000]}')
+                print("Saving response content to debian_packages_error_content.gz for inspection.")
+                with open('debian_packages_error_content.gz', 'wb') as f:
+                    f.write(response.content)
                 raise
     else:
         raise Exception(f"Invalid reponse code: {response.status_code}")
